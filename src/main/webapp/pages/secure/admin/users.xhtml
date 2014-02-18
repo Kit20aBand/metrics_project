@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<p:dataTable id="dataTable" var="user" editable="true"
+			value="#{allUsersController.dataModel}" paginator="true" rows="10"
+			styleClass="userDataTableStyle"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="1,10,15,50" resizableColumns="true"
+			emptyMessage="Вы еще не добавили ни одного студента.">
+
+			<f:facet name="header">  
+            		Users 
+        	</f:facet>
+
+			<p:column headerText="Login">
+				<h:outputText value="#{user.login}" />
+			</p:column>
+
+			<p:column headerText="Password">
+				<h:outputText value="#{user.password}" />
+			</p:column>
+
+			<p:column headerText="Email">
+				<h:outputText value="#{user.email}" />
+			</p:column>
+
+			<p:column headerText="Firstname">
+				<h:outputText value="#{user.firstname}" />
+			</p:column>
+
+			<p:column headerText="Lastname">
+				<h:outputText value="#{user.lastname}" />
+			</p:column>
+
+		</p:dataTable>
+		<p:growl id="growl" showDetail="true" />
+	</ui:define>
+</ui:composition>

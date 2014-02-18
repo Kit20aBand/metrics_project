@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<p:outputLabel value="#{i18n['account.CreateNewAccount']}"
+			style="font-size: 150%; font-weight:bold; margin:10px" />
+		<h:form>
+			<p:panelGrid columns="2">
+				<p:outputLabel for="login" value="#{i18n['login.Username']}"></p:outputLabel>
+				<p:inputText id="login" value="${registrationController.user.login}"
+					required="true"
+					requiredMessage="#{i18n['requiredMessage.Username']}"></p:inputText>
+
+				<p:outputLabel for="password" value="#{i18n['login.Password']}"></p:outputLabel>
+				<p:password id="password"
+					styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all"
+					value="${registrationController.user.password}" required="true"
+					requiredMessage="#{i18n['requiredMessage.Password']}">
+					<f:validator validatorId="passwordValidator" />
+					<f:attribute name="confirmPassword" value="#{confirmPassword}" />
+				</p:password>
+
+				<p:outputLabel for="confirmPassword"
+					value="#{i18n['account.ConfirmPassword']}"></p:outputLabel>
+				<p:password id="confirmPassword" binding="#{confirmPassword}"
+					required="true"
+					requiredMessage="#{i18n['requiredMessage.ConfirmPassword']}"></p:password>
+
+
+				<p:outputLabel for="email" value="Email: "></p:outputLabel>
+				<p:inputText id="email" value="${registrationController.user.email}"
+					required="true" requiredMessage="#{i18n['requiredMessage.Email']}"></p:inputText>
+
+				<p:outputLabel for="firstname" value="#{i18n['account.Firstname']}"></p:outputLabel>
+				<p:inputText id="firstname"
+					value="${registrationController.user.firstname}"></p:inputText>
+
+				<p:outputLabel for="lastname" value="#{i18n['account.Lastname']}"></p:outputLabel>
+				<p:inputText id="lastname"
+					value="${registrationController.user.lastname}"></p:inputText>
+
+
+			</p:panelGrid>
+			<p:commandButton value="Create" ajax="false" style="margin:10px"
+				action="#{registrationController.doRegister}"></p:commandButton>
+		</h:form>
+		<p:growl id="growl" showDetail="true" globalOnly="false" />
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:security="http://www.springframework.org/security/facelets/tags"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h:outputLabel value="#{i18n['login.SignIn']}" style="font-size: 150%; font-weight:bold; margin:10px" />
+		<f:event listener="#{loginController.checkSuccessSignIn}" type="preRenderView" />
+		<h:form id="loginForm" prependId="false">
+	
+			<p:panelGrid columns="2">
+				<p:outputLabel for="j_username" value="#{i18n['login.Username']}"></p:outputLabel>
+				<p:inputText id="j_username"  value="${loginController.username}" required="true" ></p:inputText>
+
+				<p:outputLabel for="j_password" value="#{i18n['login.Password']}"></p:outputLabel>
+				<p:inputText id="j_password" value="${loginController.password}" required="true" ></p:inputText>
+			
+			</p:panelGrid>
+			<p:commandButton value="#{i18n['login']}" ajax="false" style="margin:10px"
+				actionListener="#{loginController.doLogin}" />
+		</h:form>
+
+		<p:growl id="growl" showDetail="true" />
+	</ui:define>
+</ui:composition>
