@@ -3,15 +3,15 @@ package com.metrics.view.util;
 import java.io.Serializable;
 import java.util.Locale;
 
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.annotation.Scope;
 
 @Named
-@SessionScoped
+@Scope("session")
 public class LocaleBean implements Serializable {
 	private static final Log log = LogFactory.getLog(LocaleBean.class);
 

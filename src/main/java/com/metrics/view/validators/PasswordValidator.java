@@ -8,7 +8,7 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-import com.metrics.view.util.MessageSender;
+import com.metrics.view.util.MessageUtil;
 
 @FacesValidator("passwordValidator")
 public class PasswordValidator implements Validator {
@@ -32,7 +32,7 @@ public class PasswordValidator implements Validator {
 
 		if (!password.equals(confirmPassword)) {
 			uiInputConfirmPassword.setValid(false);
-			throw new ValidatorException(MessageSender.getMessage(
+			throw new ValidatorException(MessageUtil.getMessage(
 					"account.PasswordsDoNotConfirm",
 					FacesMessage.SEVERITY_ERROR));
 		}

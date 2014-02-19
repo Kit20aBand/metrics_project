@@ -1,67 +1,61 @@
 package com.metrics.view.controllers;
 
+import static com.metrics.security.util.AuthenticationFacade.getAuthentication;
+import static com.metrics.util.ServletUtil.getRequest;
+import static com.metrics.util.ServletUtil.getRequestDispatcher;
+import static com.metrics.util.ServletUtil.getResponce;
+import static com.metrics.util.ServletUtil.responseComplete;
+import static com.metrics.view.util.MessageUtil.findMessageFromBundle;
+import static com.metrics.view.util.MessageUtil.getFormattedText;
+import static com.metrics.view.util.MessageUtil.sendMessage;
+
 import java.io.IOException;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 
-import com.metrics.security.IAuthenticationFacade;
-import com.metrics.view.util.MessageSender;
-
 @Named
-@RequestScoped
+@Scope("request")
 public class LoginController {
 
 	private static final Log log = LogFactory.getLog(LoginController.class);
-
-	@Inject
-	private IAuthenticationFacade authenticationFacade;
 
 	private String username;
 
 	private String password;
 
 	public void doLogin() throws ServletException, IOException {
-		final ExternalContext context = FacesContext.getCurrentInstance()
-				.getExternalContext();
-		final RequestDispatcher dispatcher = ((ServletRequest) context
-				.getRequest()).getRequestDispatcher("/j_spring_security_check");
-		dispatcher.forward((ServletRequest) context.getRequest(),
-				(ServletResponse) context.getResponse());
-		FacesContext.getCurrentInstance().responseComplete();
+		final RequestDispatcher dispatcher = getRequestDispatcher("/j_spring_security_check");
+		dispatcher.forward(getRequest(), getResponce());
+		responseComplete();
 	}
 
 	public void checkSuccessSignIn() {
-		final ExternalContext context = FacesContext.getCurrentInstance()
-				.getExternalContext();
-		final ServletRequest request = (ServletRequest) context.getRequest();
+		final ServletRequest request = getRequest();
 		if (Boolean.parseBoolean(request.getParameter("error"))) {
-			MessageSender
-			.sendMessage("login.Fail", FacesMessage.SEVERITY_ERROR);
+			sendMessage("login.Fail", FacesMessage.SEVERITY_ERROR);
+		}
+	}
+
+	public void checkLoginAfterRegistration() {
+		final ServletRequest request = getRequest();
+		if (Boolean.parseBoolean(request.getParameter("afterRegistration"))) {
+			sendMessage("login.AfterRegistration", FacesMessage.SEVERITY_INFO);
 		}
 	}
 
 	public void logout() throws ServletException, IOException {
-		final ExternalContext context = FacesContext.getCurrentInstance()
-				.getExternalContext();
-		final RequestDispatcher dispatcher = ((ServletRequest) context
-				.getRequest())
-				.getRequestDispatcher("/j_spring_security_logout");
-		dispatcher.forward((ServletRequest) context.getRequest(),
-				(ServletResponse) context.getResponse());
-		FacesContext.getCurrentInstance().responseComplete();
+		final RequestDispatcher dispatcher = getRequestDispatcher("/j_spring_security_logout");
+		dispatcher.forward(getRequest(), getResponce());
+		responseComplete();
 	}
 
 	public boolean renderSignInButton() {
@@ -76,16 +70,17 @@ public class LoginController {
 	}
 
 	public String getAuthenticationName() {
-		FacesContext.getCurrentInstance().getViewRoot().getLocale();
 		if (isAuthentication()) {
-			return "Hello, "
-					+ authenticationFacade.getAuthentication().getName();
+			final Object[] params = { getAuthentication().getName() };
+			return getFormattedText("login.HelloUser", params);
+		} else {
+			final Object[] params = { findMessageFromBundle("login.GuestName") };
+			return getFormattedText("login.HelloUser", params);
 		}
-		return "Hello, guest";
 	}
 
 	public boolean isAuthentication() {
-		if (authenticationFacade.getAuthentication() instanceof AnonymousAuthenticationToken) {
+		if (getAuthentication() instanceof AnonymousAuthenticationToken) {
 			return false;
 		}
 		return true;

@@ -9,6 +9,7 @@
 	<ui:define name="content">
 		<h:outputLabel value="#{i18n['login.SignIn']}" style="font-size: 150%; font-weight:bold; margin:10px" />
 		<f:event listener="#{loginController.checkSuccessSignIn}" type="preRenderView" />
+		<f:event listener="#{loginController.checkLoginAfterRegistration}" type="preRenderView" />
 		<h:form id="loginForm" prependId="false">
 	
 			<p:panelGrid columns="2">
