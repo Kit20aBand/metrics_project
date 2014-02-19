@@ -1,10 +1,14 @@
 package com.metrics.persistence.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Cascade;
@@ -31,6 +35,9 @@ public class User extends BaseEntity {
 	@JoinTable(name = "user_roles", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
 	@Cascade({ CascadeType.ALL })
 	private Role role;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<Project> projects;
 
 	public String getLogin() {
 		return login;
@@ -78,5 +85,13 @@ public class User extends BaseEntity {
 
 	public void setLastname(final String lastname) {
 		this.lastname = lastname;
+	}
+
+	public Set<Project> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(final Set<Project> projects) {
+		this.projects = projects;
 	}
 }
