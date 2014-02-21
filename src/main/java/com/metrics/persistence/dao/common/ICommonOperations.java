@@ -19,11 +19,17 @@ public interface ICommonOperations<T extends BaseEntity> {
 
 	List<T> findAll();
 
+	List<T> findAll(int start, int end);
+
 	List<T> findWithNamedQuery(String namedQueryName);
 
 	List<T> findWithNamedQuery(String namedQueryName,
 			Map<String, Object> parameters);
 
+	List<T> findWithNamedQuery(String namedQueryName, int start, int end);
+
 	Object getOneResult(String namedQueryName, Map<String, Object> parameters);
+
+	int countTotalRecord(String namedQueryName);
 
 }

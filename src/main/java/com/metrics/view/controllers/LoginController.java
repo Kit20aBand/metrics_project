@@ -1,6 +1,5 @@
 package com.metrics.view.controllers;
 
-import static com.metrics.security.util.AuthenticationFacade.getAuthentication;
 import static com.metrics.util.ServletUtil.getRequest;
 import static com.metrics.util.ServletUtil.getRequestDispatcher;
 import static com.metrics.util.ServletUtil.getResponce;
@@ -12,6 +11,7 @@ import static com.metrics.view.util.MessageUtil.sendMessage;
 import java.io.IOException;
 
 import javax.faces.application.FacesMessage;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,13 +20,17 @@ import javax.servlet.ServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Scope;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
+
+import com.metrics.security.util.AuthenticationInfo;
 
 @Named
 @Scope("request")
 public class LoginController {
 
 	private static final Log log = LogFactory.getLog(LoginController.class);
+
+	@Inject
+	private AuthenticationInfo authenticationInfo;
 
 	private String username;
 
@@ -71,7 +75,8 @@ public class LoginController {
 
 	public String getAuthenticationName() {
 		if (isAuthentication()) {
-			final Object[] params = { getAuthentication().getName() };
+			final Object[] params = { authenticationInfo
+					.getAuthenticationName() };
 			return getFormattedText("login.HelloUser", params);
 		} else {
 			final Object[] params = { findMessageFromBundle("login.GuestName") };
@@ -80,10 +85,7 @@ public class LoginController {
 	}
 
 	public boolean isAuthentication() {
-		if (getAuthentication() instanceof AnonymousAuthenticationToken) {
-			return false;
-		}
-		return true;
+		return authenticationInfo.isAuthentication();
 	}
 
 	public String getUsername() {

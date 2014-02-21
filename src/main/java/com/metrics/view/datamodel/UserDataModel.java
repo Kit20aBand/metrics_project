@@ -10,7 +10,8 @@ import org.primefaces.model.SelectableDataModel;
 
 import com.metrics.persistence.model.User;
 
-public class UserDataModel extends ListDataModel<User> implements SelectableDataModel<User>, Serializable{
+public class UserDataModel extends ListDataModel<User> implements
+SelectableDataModel<User>, Serializable {
 
 	private List<User> data = new ArrayList<User>();
 
@@ -22,13 +23,9 @@ public class UserDataModel extends ListDataModel<User> implements SelectableData
 		return data;
 	}
 
-
-
 	public void setData(final List<User> data) {
 		this.data = data;
 	}
-
-
 
 	public UserDataModel(final List<User> data) {
 		super(data);
@@ -38,19 +35,19 @@ public class UserDataModel extends ListDataModel<User> implements SelectableData
 	@Override
 	public User getRowData(final String rowKey) {
 
-		final List<User> users =  (List<User>) getWrappedData();
-
-		for(final User user : users) {
-			if (user.getLogin().equals(rowKey))
+		final List<User> users = (List<User>) getWrappedData();
+		Integer i;
+		for (final User user : users) {
+			i = user.getId();
+			if (i.equals(rowKey))
 				return user;
 		}
-
 		return null;
 	}
 
 	@Override
 	public Object getRowKey(final User user) {
-		return user.getLogin();
+		return user.getId();
 	}
 
 }

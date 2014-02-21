@@ -11,10 +11,11 @@
 		<p:menubar >
 			<p:submenu rendered="#{loginController.authentication}" label="#{i18n['menubar.File']}" icon="ui-icon-document">
 				<p:submenu label="#{i18n['menubar.Create']}" icon="ui-icon-contact">
-					<p:menuitem value="#{i18n['menubar.Project']}" url="#" />
+					<p:menuitem value="#{i18n['menubar.Project']}" url="/pages/secure/user/create_project.xhtml" />
 					<p:menuitem value="#{i18n['menubar.Other']}" url="#" />
 				</p:submenu>
 				<p:menuitem value="#{i18n['menubar.Open']}" url="#" />
+				<p:menuitem value="#{i18n['menubar.MyProjects']}" url="/pages/secure/user/projects.xhtml" />
 				<p:separator />
 				<p:menuitem value="#{i18n['menubar.Quit']}" url="#" />
 			</p:submenu>

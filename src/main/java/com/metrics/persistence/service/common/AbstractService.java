@@ -10,7 +10,7 @@ import com.metrics.persistence.model.BaseEntity;
 
 @Transactional
 public abstract class AbstractService<T extends BaseEntity> implements
-		ICommonOperations<T> {
+ICommonOperations<T> {
 
 	@Override
 	public void create(final T entity) {
@@ -43,6 +43,11 @@ public abstract class AbstractService<T extends BaseEntity> implements
 	}
 
 	@Override
+	public List<T> findAll(final int start, final int end) {
+		return getDao().findAll(start, end);
+	}
+
+	@Override
 	public List<T> findWithNamedQuery(final String namedQueryName) {
 		return getDao().findWithNamedQuery(namedQueryName);
 	}
@@ -59,6 +64,17 @@ public abstract class AbstractService<T extends BaseEntity> implements
 		return getDao().getOneResult(namedQueryName, parameters);
 	}
 
+	@Override
+	public int countTotalRecord(final String namedQueryName) {
+		return getDao().countTotalRecord(namedQueryName);
+	}
+
 	protected abstract ICommonOperations<T> getDao();
+
+	@Override
+	public List<T> findWithNamedQuery(final String namedQueryName,
+			final int start, final int end) {
+		return getDao().findWithNamedQuery(namedQueryName, start, end);
+	}
 
 }

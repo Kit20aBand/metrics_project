@@ -14,12 +14,18 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-
 @Entity
-@NamedQueries({ @NamedQuery(name = User.FIND_BY_LOGIN, query = "SELECT u FROM User u WHERE u.login = :login") })
+@NamedQueries({
+		@NamedQuery(name = User.FIND_ALL, query = "SELECT u FROM User u"),
+	@NamedQuery(name = User.FIND_BY_LOGIN, query = "SELECT u FROM User u WHERE u.login = :login"),
+	@NamedQuery(name = User.TOTAL, query = "SELECT COUNT(u) FROM User u") })
 public class User extends BaseEntity {
 
+	public static final String FIND_ALL = "User.findAll";
+
 	public static final String FIND_BY_LOGIN = "User.findByLogin";
+
+	public static final String TOTAL = "User.Total";
 
 	private String login;
 

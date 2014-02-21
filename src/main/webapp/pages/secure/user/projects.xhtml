@@ -7,34 +7,21 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 		<h:form id="form" onLoad="reset()">
-			<p:dataTable id="dataTable" var="user" editable="true"
-				value="#{allUsersController.dataModel}" paginator="true" rows="10"
-				styleClass="userDataTableStyle"
+			<p:dataTable id="dataTable" var="project" editable="true"
+				value="#{allUserProjectsController.dataModel}" paginator="true" rows="10"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="1,3,5,10,15,50" resizableColumns="true" lazy="true">
 
 				<f:facet name="header">  
-            		Users 
+            		Projects 
         	</f:facet>
 
-				<p:column headerText="Login">
-					<h:outputText value="#{user.login}" />
+				<p:column headerText="Name">
+					<h:outputText value="#{project.name}" />
 				</p:column>
 
-				<p:column headerText="Password">
-					<h:outputText value="#{user.password}" />
-				</p:column>
-
-				<p:column headerText="Email">
-					<h:outputText value="#{user.email}" />
-				</p:column>
-
-				<p:column headerText="Firstname">
-					<h:outputText value="#{user.firstname}" />
-				</p:column>
-
-				<p:column headerText="Lastname">
-					<h:outputText value="#{user.lastname}" />
+				<p:column headerText="Description">
+					<h:outputText value="#{project.description}" />
 				</p:column>
 
 			</p:dataTable>

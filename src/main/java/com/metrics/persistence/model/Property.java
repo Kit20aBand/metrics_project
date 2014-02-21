@@ -1,7 +1,9 @@
 package com.metrics.persistence.model;
 
+import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+@Entity
 public class Property extends BaseEntity {
 
 	private String name;

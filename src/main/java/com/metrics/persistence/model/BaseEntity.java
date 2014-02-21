@@ -11,9 +11,9 @@ public class BaseEntity implements Serializable {
 
 	@Id
 	@GeneratedValue
-	public int id;
+	public Integer id;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -38,4 +38,5 @@ public class BaseEntity implements Serializable {
 			return false;
 		return true;
 	}
+
 }

@@ -10,29 +10,28 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 
 import com.metrics.persistence.dao.common.ICommonOperations;
-import com.metrics.persistence.model.User;
+import com.metrics.persistence.model.Project;
 import com.metrics.view.datamodel.GenericDataModel;
 
 @Named
 @Scope("request")
-public class AllUsersController {
+public class AllUserProjectsController {
 
 	private static final Log log = LogFactory.getLog(AllUsersController.class);
 
 	@Inject
-	@Qualifier("userService")
-	private ICommonOperations<User> service;
+	@Qualifier("projectService")
+	private ICommonOperations<Project> service;
 
-	private GenericDataModel<User> dataModel;
+	private GenericDataModel<Project> dataModel;
 
 	@PostConstruct
 	public void init() {
-		dataModel = new GenericDataModel<User>(service);
+		dataModel = new GenericDataModel<Project>(service);
 	}
 
-	public GenericDataModel<User> getDataModel() {
+	public GenericDataModel<Project> getDataModel() {
 		return dataModel;
 	}
-
 
 }
