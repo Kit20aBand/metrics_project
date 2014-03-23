@@ -25,14 +25,18 @@ public class AllUsersController {
 
 	private GenericDataModel<User> dataModel;
 
+
+
 	@PostConstruct
 	public void init() {
 		dataModel = new GenericDataModel<User>(service);
+
 	}
 
 	public GenericDataModel<User> getDataModel() {
 		return dataModel;
 	}
+
 
 
 }

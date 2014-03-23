@@ -131,5 +131,4 @@ ICommonOperations<T> {
 		return sessionFactory.getCurrentSession();
 	}
 
-
 }

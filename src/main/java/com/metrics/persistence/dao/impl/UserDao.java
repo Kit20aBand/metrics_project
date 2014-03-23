@@ -17,10 +17,9 @@ public class UserDao extends AbstractHibernateDao<User> implements IUserDao {
 	}
 
 	@Override
-	public User getUser(final String login) {
-		final Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("login", login);
-		return (User) getOneResult(User.FIND_BY_LOGIN, parameters);
+	public User getUser(final String username) {
+		final Map<String, Object> params = new HashMap<String, Object>();
+		params.put("username", username);
+		return (User) getOneResult(User.FIND_BY_USERNAME, params);
 	}
-
 }

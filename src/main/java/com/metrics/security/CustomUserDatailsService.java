@@ -17,8 +17,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.metrics.persistence.dao.IUserDao;
 import com.metrics.persistence.model.Role;
+import com.metrics.persistence.service.IUserService;
 import com.metrics.view.controllers.LoginController;
 
 @Service
@@ -27,18 +27,20 @@ public class CustomUserDatailsService implements UserDetailsService {
 	private static final Log log = LogFactory.getLog(LoginController.class);
 
 	@Inject
-	private IUserDao dao;
+	private IUserService service;
 
 	@Override
 	public UserDetails loadUserByUsername(final String login)
 			throws UsernameNotFoundException {
 
-		final com.metrics.persistence.model.User domainUser = dao.getUser(login);
+		final com.metrics.persistence.model.User domainUser = service
+				.getUser(login);
 		final boolean enabled = true;
 		final boolean accountNonExpired = true;
 		final boolean credentialsNonExpired = true;
 		final boolean accountNonLocked = true;
-		return new User(domainUser.getLogin(), domainUser.getPassword(), enabled,
+		return new User(domainUser.getUsername(), domainUser.getPassword(),
+				enabled,
 				accountNonExpired,
 				credentialsNonExpired,
 				accountNonLocked,

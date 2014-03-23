@@ -1,122 +1,93 @@
 package com.metrics.view.datamodel;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
-import org.springframework.stereotype.Component;
 
 import com.metrics.persistence.model.User;
-import com.metrics.persistence.service.IUserService;
-import com.metrics.view.controllers.AllUsersController;
 
-@Component
-public class LazyUserDataModel extends LazyDataModel<User> implements
-Serializable {
-
-	private static final Log log = LogFactory.getLog(AllUsersController.class);
-
-	private IUserService service;
+public class LazyUserDataModel extends LazyDataModel<User> {
 
 	private List<User> datasource;
 
-	private int pageSize;
-
-	private int rowIndex;
-
-	private int rowCount;
-
-	public LazyUserDataModel() {
-
+	public LazyUserDataModel(final List<User> datasource) {
+		this.datasource = datasource;
 	}
 
-	public LazyUserDataModel(final IUserService service) {
-		this.service = service;
+	@Override
+	public User getRowData(final String rowKey) {
+		for (final User user : datasource) {
+			if (user.getId().toString().equals(rowKey))
+				return user;
+		}
+
+		return null;
+	}
+
+	@Override
+	public Object getRowKey(final User User) {
+		return User.getId();
 	}
 
 	@Override
 	public List<User> load(final int first, final int pageSize,
 			final String sortField, final SortOrder sortOrder,
 			final Map<String, String> filters) {
-		datasource = service.findWithNamedQuery(User.FIND_ALL, first, first
-				+ pageSize);
-		log.info("Data from DB was load");
-		System.out.println(datasource);
-		setRowCount(service.countTotalRecord(User.TOTAL));
-		return datasource;
-	}
+		final List<User> data = new ArrayList<User>();
 
-	@Override
-	public boolean isRowAvailable() {
-		checkNotNull(datasource);
-		final int index = rowIndex % pageSize;
-		return index >= 0 && index < datasource.size();
-	}
+		//filter
+		for (final User User : datasource) {
+			boolean match = true;
 
-	@Override
-	public Object getRowKey(final User user) {
-		return user.getId().toString();
-	}
+			for (final Iterator<String> it = filters.keySet().iterator(); it
+					.hasNext();) {
+				try {
+					final String filterProperty = it.next();
+					final String filterValue = filters.get(filterProperty);
+					final String fieldValue = String.valueOf(User.getClass().getField(filterProperty).get(User));
 
-	@Override
-	public User getRowData() {
-		checkNotNull(datasource);
-		final int index = rowIndex % pageSize;
-		if (index > datasource.size()) {
-			return null;
+					if(filterValue == null || fieldValue.startsWith(filterValue)) {
+						match = true;
+					}
+					else {
+						match = false;
+						break;
+					}
+				} catch(final Exception e) {
+					match = false;
+				}
+			}
+
+			if(match) {
+				data.add(User);
+			}
 		}
-		return datasource.get(index);
-	}
 
-	@Override
-	public User getRowData(final String rowKey) {
-		checkNotNull(datasource);
-		for (final User user : datasource) {
-			if (user.getId().toString().equals(rowKey))
-				return user;
+		//sort
+		if(sortField != null) {
+			Collections.sort(data, new LazySorter(sortField, sortOrder));
 		}
-		return null;
-	}
 
-	@Override
-	public void setPageSize(final int pageSize) {
-		this.pageSize = pageSize;
-	}
+		//rowCount
+		final int dataSize = data.size();
+		setRowCount(dataSize);
 
-	@Override
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	@Override
-	public int getRowIndex() {
-		return rowIndex;
-	}
-
-	@Override
-	public void setRowIndex(final int rowIndex) {
-		this.rowIndex = rowIndex;
-	}
-
-	@Override
-	public void setRowCount(final int rowCount) {
-		this.rowCount = rowCount;
-	}
-
-	@Override
-	public int getRowCount() {
-		return rowCount;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public void setWrappedData(final Object list) {
-		datasource = (List<User>) list;
+		//paginate
+		if(dataSize > pageSize) {
+			try {
+				return data.subList(first, first + pageSize);
+			}
+			catch(final IndexOutOfBoundsException e) {
+				return data.subList(first, first + (dataSize % pageSize));
+			}
+		}
+		else {
+			return data;
+		}
 	}
 }

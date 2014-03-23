@@ -16,18 +16,18 @@ import org.hibernate.annotations.CascadeType;
 
 @Entity
 @NamedQueries({
-		@NamedQuery(name = User.FIND_ALL, query = "SELECT u FROM User u"),
-	@NamedQuery(name = User.FIND_BY_LOGIN, query = "SELECT u FROM User u WHERE u.login = :login"),
+	@NamedQuery(name = User.FIND_ALL, query = "SELECT u FROM User u"),
+		@NamedQuery(name = User.FIND_BY_USERNAME, query = "SELECT u FROM User u WHERE u.username = :username"),
 	@NamedQuery(name = User.TOTAL, query = "SELECT COUNT(u) FROM User u") })
 public class User extends BaseEntity {
 
 	public static final String FIND_ALL = "User.findAll";
 
-	public static final String FIND_BY_LOGIN = "User.findByLogin";
+	public static final String FIND_BY_USERNAME = "User.findByUsername";
 
 	public static final String TOTAL = "User.Total";
 
-	private String login;
+	private String username;
 
 	private String password;
 
@@ -45,13 +45,6 @@ public class User extends BaseEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<Project> projects;
 
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(final String login) {
-		this.login = login;
-	}
 
 	public String getPassword() {
 		return password;
@@ -99,5 +92,13 @@ public class User extends BaseEntity {
 
 	public void setProjects(final Set<Project> projects) {
 		this.projects = projects;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(final String username) {
+		this.username = username;
 	}
 }
