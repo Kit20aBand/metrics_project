@@ -66,35 +66,12 @@
 			<version>${org.springframework.security.version}</version>
 		</dependency>
 
+		<!-- JBoss RESTEasy -->
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
-			<version>2.3.2.FINAL</version>
-			<scope>provided</scope>
+			<version>2.2.1.GA</version>
 		</dependency>
-		
-		<dependency>
-     		<groupId>org.jboss.resteasy</groupId>
-     		<artifactId>jaxrs-api</artifactId>
-     		<version>2.3.0.GA</version>
-     		<scope>provided</scope>
-    	</dependency>
-		
-
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxb-provider</artifactId>
-			<version>2.3.2.FINAL</version>
-			<scope>provided</scope>
-		</dependency>
-		
-		<dependency>
-        	<groupId>org.apache.httpcomponents</groupId>
-        	<artifactId>httpclient</artifactId>
-        	<version>4.1.2</version>
-  			<scope>provided</scope>
-    	</dependency>
-		
 
 		<!-- Persistence -->
 

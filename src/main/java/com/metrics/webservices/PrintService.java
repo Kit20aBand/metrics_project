@@ -1,4 +1,4 @@
-package com.metrics.webservices.springintegration;
+package com.metrics.webservices;
 
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
@@ -9,18 +9,22 @@ import javax.ws.rs.core.Response;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-@Path("/customer")
+import com.metrics.persistence.model.User;
+import com.metrics.persistence.service.IUserService;
+
+@Path("/rest/")
 public class PrintService {
 
-	CustomerBo customerBo;
+	IUserService iUserService;
 
 	@GET
 	@Path("/print")
 	public Response printMessage(@Context final ServletContext servletContext) {
 		final ApplicationContext ctx = WebApplicationContextUtils
 				.getWebApplicationContext(servletContext);
-		customerBo = ctx.getBean("customerBoImpl", CustomerBoImpl.class);
-		final String result = customerBo.getMsg();
-		return Response.status(200).entity(result).build();
+		iUserService = ctx.getBean("userService", IUserService.class);
+
+		final User user = iUserService.findOne(new Integer(1));
+		return Response.status(200).entity(user.getId()).build();
 	}
 }

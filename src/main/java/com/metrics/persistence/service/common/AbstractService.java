@@ -28,12 +28,12 @@ ICommonOperations<T> {
 	}
 
 	@Override
-	public void deleteById(final long entityId) {
+	public void deleteById(final int entityId) {
 		getDao().deleteById(entityId);
 	}
 
 	@Override
-	public T findOne(final long id) {
+	public T findOne(final int id) {
 		return getDao().findOne(id);
 	}
 

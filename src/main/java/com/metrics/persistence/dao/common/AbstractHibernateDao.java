@@ -47,14 +47,14 @@ ICommonOperations<T> {
 	}
 
 	@Override
-	public final void deleteById(final long entityId) {
+	public final void deleteById(final int entityId) {
 		final T entity = findOne(entityId);
 		checkState(entity != null);
 		delete(entity);
 	}
 
 	@Override
-	public final T findOne(final long id) {
+	public final T findOne(final int id) {
 		return (T) getCurrentSession().get(clazz, id);
 	}
 

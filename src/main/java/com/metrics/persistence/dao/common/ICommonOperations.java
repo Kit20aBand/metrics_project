@@ -13,9 +13,9 @@ public interface ICommonOperations<T extends BaseEntity> {
 
 	void delete(T entity);
 
-	void deleteById(long entityId);
+	void deleteById(int entityId);
 
-	T findOne(long id);
+	T findOne(int id);
 
 	List<T> findAll();
 
