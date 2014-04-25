@@ -1,7 +1,5 @@
 package com.metrics.persistence.service.impl;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -24,11 +22,6 @@ IEventService {
 		return dao;
 	}
 
-	@Override
-	public List<Event> findWithNamedQuery(final String namedQueryName,
-			final int start, final int end) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

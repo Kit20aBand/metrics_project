@@ -7,7 +7,29 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 		<h3>Project home</h3>
-		
+		<h:form id="form" onLoad="reset()">
+			<p:dataTable id="dataTable" var="event" editable="true"
+				value="#{projectHomeController.dataModel}" paginator="true" rows="10"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="1,3,5,10,15,50" resizableColumns="true" lazy="true">
+
+				<f:facet name="header">  
+            		Projects 
+        	</f:facet>
+
+				<p:column headerText="Name">
+					<h:outputText value="#{project.name}" />
+				</p:column>
+
+				<p:column headerText="Description">
+					<h:outputText value="#{project.description}" />
+				</p:column>
+
+				<p:column headerText="Token">
+					<h:outputText value="#{project.token}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
 		<p:growl id="growl" showDetail="true" />
 	</ui:define>
 </ui:composition>

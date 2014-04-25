@@ -4,7 +4,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -14,6 +13,8 @@ public class Project extends BaseEntity {
 
 	private String name;
 
+	private String token;
+
 	@Lob
 	@Column(length = 1000)
 	private String description;
@@ -21,7 +22,7 @@ public class Project extends BaseEntity {
 	@ManyToOne
 	private User user;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+	@OneToMany(mappedBy = "project")
 	private Set<Event> events;
 
 	public String getName() {
@@ -54,6 +55,14 @@ public class Project extends BaseEntity {
 
 	public void setEvents(final Set<Event> events) {
 		this.events = events;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(final String token) {
+		this.token = token;
 	}
 
 }

@@ -1,50 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	id="WebApp_ID" version="3.0">
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+        xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
 	<display-name>Metrics</display-name>
 	<welcome-file-list>
 		<welcome-file>/pages/unsecure/index.xhtml</welcome-file>
 	</welcome-file-list>
-
 	<context-param>
 		<param-name>resteasy.resources</param-name>
-		<param-value>com.metrics.webservices.PrintService</param-value>
+		<param-value>com.metrics.webservices.PrintService,com.metrics.webservices.QueryService</param-value>
 	</context-param>
-
 	<context-param>
 		<param-name>contextClass</param-name>
 		<param-value>
-            org.springframework.web.context.support.AnnotationConfigWebApplicationContext
-      	</param-value>
+			org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+		</param-value>
 	</context-param>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>com.metrics.spring</param-value>
 	</context-param>
-
 	<listener>
 		<listener-class>
 			org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap
-        </listener-class>
+		</listener-class>
 	</listener>
-
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
 	</listener>
-	
 	<listener>
 		<listener-class>
 			org.springframework.web.context.request.RequestContextListener
 		</listener-class>
 	</listener>
-	
-	
-	
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy
+		</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
@@ -52,41 +48,33 @@
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
-
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 		<url-pattern>/faces/*</url-pattern>
 		<url-pattern>*.jsf</url-pattern>
 	</servlet-mapping>
-	
 	<servlet>
 		<servlet-name>resteasy-servlet</servlet-name>
 		<servlet-class>
 			org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
-        </servlet-class>
+		</servlet-class>
 	</servlet>
- 
 	<servlet-mapping>
 		<servlet-name>resteasy-servlet</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
-	
-
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
 		<param-value>Development</param-value>
 	</context-param>
-
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
 		<param-value>cruze</param-value>
 	</context-param>
-
 </web-app>

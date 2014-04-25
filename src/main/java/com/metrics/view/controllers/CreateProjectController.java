@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Scope;
@@ -28,8 +29,8 @@ public class CreateProjectController {
 
 	@PostConstruct
 	void init() {
-		log.info("1111111111111111111111");
 		project.setUser(authenticationInfo.findUser());
+		project.setToken(RandomStringUtils.randomAlphabetic(10));
 	}
 
 	public String createNewProject() {

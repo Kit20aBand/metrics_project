@@ -25,6 +25,7 @@ public class RegistrationController {
 
 	{
 		final Role role = new Role(Role.ROLE_USER);
+		// final Role role = new Role(Role.ROLE_ADMIN);
 		user.setRole(role);
 	}
 

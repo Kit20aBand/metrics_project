@@ -27,4 +27,5 @@ public class PrintService {
 		final User user = iUserService.findOne(new Integer(1));
 		return Response.status(200).entity(user.getId()).build();
 	}
+
 }
