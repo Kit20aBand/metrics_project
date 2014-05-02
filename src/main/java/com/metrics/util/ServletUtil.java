@@ -35,4 +35,5 @@ public class ServletUtil {
 				.getExternalContext();
 		return context;
 	}
+
 }

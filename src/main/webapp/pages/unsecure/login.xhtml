@@ -7,23 +7,35 @@
 	xmlns:security="http://www.springframework.org/security/facelets/tags"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-		<h:outputLabel value="#{i18n['login.SignIn']}" style="font-size: 150%; font-weight:bold; margin:10px" />
-		<f:event listener="#{loginController.checkSuccessSignIn}" type="preRenderView" />
-		<f:event listener="#{loginController.checkLoginAfterRegistration}" type="preRenderView" />
-		<h:form id="loginForm" prependId="false">
-	
+		<h:outputLabel value="#{i18n['login.SignIn']}"
+			style="font-size: 150%; font-weight:bold; margin:10px" />
+		<f:event listener="#{loginController.checkSuccessSignIn}"
+			type="preRenderView" />
+		<f:event listener="#{loginController.checkLoginAfterRegistration}"
+			type="preRenderView" />
+		<h:form id="loginForm" onLoad="clearForm(loginForm)" prependId="false">
+
 			<p:panelGrid columns="2">
 				<p:outputLabel for="j_username" value="#{i18n['login.Username']}"></p:outputLabel>
-				<p:inputText id="j_username"  value="${loginController.username}" required="true" ></p:inputText>
+				<p:inputText id="j_username" value="${loginController.username}"
+					required="true"></p:inputText>
 
 				<p:outputLabel for="j_password" value="#{i18n['login.Password']}"></p:outputLabel>
-				<p:inputText id="j_password" value="${loginController.password}" required="true" ></p:inputText>
-			
+				<p:password id="j_password" value="${loginController.password}"
+					required="true"></p:password>
+
 			</p:panelGrid>
-			<p:commandButton value="#{i18n['login']}" ajax="false" style="margin:10px"
-				actionListener="#{loginController.doLogin}" />
+			<p:commandButton value="#{i18n['login']}" ajax="false"
+				style="margin:10px" actionListener="#{loginController.doLogin}" />
 		</h:form>
 
 		<p:growl id="growl" showDetail="true" />
 	</ui:define>
+	<script type="text/javascript"> 
+	    function clearForm(formName){
+        jQuery('#'+formName).each(function(){
+	        this.reset();
+	});
+	    }
+	</script>
 </ui:composition>

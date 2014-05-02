@@ -59,7 +59,7 @@ ICommonOperations<T> {
 	}
 
 	@Override
-	public Object getOneResult(final String namedQueryName,
+	public T getOneResult(final String namedQueryName,
 			final Map<String, Object> parameters) {
 		return getDao().getOneResult(namedQueryName, parameters);
 	}
@@ -75,6 +75,13 @@ ICommonOperations<T> {
 	public List<T> findWithNamedQuery(final String namedQueryName,
 			final int start, final int end) {
 		return getDao().findWithNamedQuery(namedQueryName, start, end);
+	}
+
+	@Override
+	public List<T> findWithNamedQuery(final String namedQueryName,
+			final Map<String, Object> parameters, final int start, final int end) {
+		return getDao().findWithNamedQuery(namedQueryName, parameters, start,
+				end);
 	}
 
 }

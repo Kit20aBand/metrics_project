@@ -6,28 +6,27 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-		<h:form id="form">
-		<p:contextMenu for="dataTable">
-				<p:menuitem value="#{i18n['event.goToEventst']}"
-					action="#{allUserProjectsController.goToProject()}" />
-			</p:contextMenu>
+		<h3>Project home</h3>
+		<h:form id="form" onLoad="reset()">
 			<p:dataTable id="dataTable" var="event" editable="true"
-				value="#{projectHomeController.events}" paginator="true" rows="10" rowKey="#{event.id}"
+				value="#{projectHomeController.dataModel}" paginator="true" rows="10"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="1,3,5,10,15,50" resizableColumns="true"
-				selection="#{projectHomeController.selectedEvent}" selectionMode="single"
-				filteredValue="#{projectHomeController.filteredEvents}">
+				rowsPerPageTemplate="1,3,5,10,15,50" resizableColumns="true" lazy="true">
 
 				<f:facet name="header">  
-            		<h:outputText value="#{i18n['event.events']}" /> 
-        		</f:facet>
+            		Projects 
+        	</f:facet>
 
 				<p:column headerText="Name">
-					<h:outputText value="#{event.date}" />
+					<h:outputText value="#{project.name}" />
 				</p:column>
 
 				<p:column headerText="Description">
-					<h:outputText value="#{event.name}" />
+					<h:outputText value="#{project.description}" />
+				</p:column>
+
+				<p:column headerText="Token">
+					<h:outputText value="#{project.token}" />
 				</p:column>
 			</p:dataTable>
 		</h:form>

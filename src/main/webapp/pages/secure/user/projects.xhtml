@@ -6,29 +6,45 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-		<h:form id="form" onLoad="reset()">
+		<h:form id="form">
+			<p:contextMenu for="dataTable">
+				<p:menuitem value="#{i18n['projectsmenu.GoToProject']}"
+					action="#{allUserProjectsController.goToProject()}" />
+				<p:menuitem value="#{i18n['projectsmenu.delete']}"
+					actionListener="#{allUserProjectsController.deleteProject()}"
+					update="dataTable" />
+
+			</p:contextMenu>
 			<p:dataTable id="dataTable" var="project" editable="true"
-				value="#{allUserProjectsController.dataModel}" paginator="true" rows="10"
+				value="#{allUserProjectsController.projects}" paginator="true"
+				rows="10" rowKey="#{project.id}"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="1,3,5,10,15,50" resizableColumns="true" lazy="true">
+				rowsPerPageTemplate="1,3,5,10,15,50" resizableColumns="true"
+				selection="#{allUserProjectsController.selectedProject}"
+				selectionMode="single"
+				filteredValue="#{allUserProjectsController.filteredProjects}">
 
-				<f:facet name="header">  
-            		Projects 
-        	</f:facet>
+				<f:facet name="header">
+					<h:outputText value="#{i18n['project.projects']}" />
+				</f:facet>
 
-				<p:column headerText="Name">
+				<p:column headerText="#{i18n['project.name']}" filterBy="#{project.name}" sortBy="#{project.name}">
 					<h:outputText value="#{project.name}" />
 				</p:column>
 
-				<p:column headerText="Description">
+				<p:column headerText="#{i18n['project.description']}" filterBy="#{project.description}" sortBy="#{project.description}">
 					<h:outputText value="#{project.description}" />
 				</p:column>
 
-				<p:column headerText="Token">
+				<p:column headerText="#{i18n['project.token']}" filterBy="#{project.token}" sortBy="#{project.token}">
 					<h:outputText value="#{project.token}" />
 				</p:column>
+
 			</p:dataTable>
 		</h:form>
 		<p:growl id="growl" showDetail="true" />
+	</ui:define>
+	<ui:define name="west">
+
 	</ui:define>
 </ui:composition>

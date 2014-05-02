@@ -21,7 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Scope;
 
-import com.metrics.security.util.AuthenticationInfo;
+import com.metrics.util.AuthenticationInfo;
 
 @Named
 @Scope("request")

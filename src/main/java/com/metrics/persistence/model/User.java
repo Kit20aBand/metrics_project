@@ -17,8 +17,9 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 @NamedQueries({
 	@NamedQuery(name = User.FIND_ALL, query = "SELECT u FROM User u"),
-		@NamedQuery(name = User.FIND_BY_USERNAME, query = "SELECT u FROM User u WHERE u.username = :username"),
-	@NamedQuery(name = User.TOTAL, query = "SELECT COUNT(u) FROM User u") })
+	@NamedQuery(name = User.FIND_BY_USERNAME, query = "SELECT u FROM User u WHERE u.username = :username"),
+	@NamedQuery(name = User.TOTAL, query = "SELECT COUNT(u) FROM User u"),
+	@NamedQuery(name = User.FIND_BY_ROLE, query = "SELECT u FROM User u WHERE u.role = :role") })
 public class User extends BaseEntity {
 
 	public static final String FIND_ALL = "User.findAll";
@@ -26,6 +27,8 @@ public class User extends BaseEntity {
 	public static final String FIND_BY_USERNAME = "User.findByUsername";
 
 	public static final String TOTAL = "User.Total";
+
+	public static final String FIND_BY_ROLE = "User.findByRole";
 
 	private String username;
 
@@ -39,10 +42,10 @@ public class User extends BaseEntity {
 
 	@OneToOne
 	@JoinTable(name = "user_roles", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
-	@Cascade({ CascadeType.ALL })
 	private Role role;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@Cascade({ CascadeType.ALL })
 	private Set<Project> projects;
 
 

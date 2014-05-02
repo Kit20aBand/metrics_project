@@ -6,8 +6,15 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-		<h3>Console</h3>
-		<p:commandButton value="Users" action="/pages/secure/admin/users.xhtml"></p:commandButton>
-		<p:growl id="growl" showDetail="true" />
+		<h3><h:outputText value="#{i18n['console.consoleHome']}" /></h3>
+	</ui:define>
+	<ui:define name="west">
+		<h:form>
+			<p:menu>
+				<p:menuitem value="#{i18n['console.Users']}"
+					action="users.xhtml?faces-redirect=true}" />
+				
+			</p:menu>
+		</h:form>
 	</ui:define>
 </ui:composition>

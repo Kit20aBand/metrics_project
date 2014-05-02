@@ -5,27 +5,27 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-<f:view contentType="text/html" locale="#{localeBean.locale}">
+<f:view contentType="text/html" encoding="UTF-8" locale="#{localeBean.locale}">
 	<h:head>
 		<f:facet name="first">
-                <meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Metrics</title>
-            </f:facet>
+			<meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>Metrics</title>
+		</f:facet>
 
-           
-           
 
-            <style type="text/css">
-                .ui-layout-north {
-                    z-index:20 !important;
-                    overflow:visible !important;;
-                }
 
-                .ui-layout-north .ui-layout-unit-content {
-                    overflow:visible !important;
-                }
-            </style>
+
+		<style type="text/css">
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}
+</style>
 	</h:head>
 	<h:body>
 		<p:layout fullPage="true">
@@ -35,23 +35,18 @@
 				<ui:include src="../templates/tiles/MenuBar.xhtml" />
 			</p:layoutUnit>
 
-			<p:layoutUnit position="south" size="100" header="Bottom"
+			<p:layoutUnit position="south" size="100" header="#{i18n['template.bottom']}"
 				resizable="true" closable="true" collapsible="true">
 				<ui:insert name="south">
 					<h:outputText value="South unit content." />
 				</ui:insert>
 			</p:layoutUnit>
 
-			<p:layoutUnit position="west" size="200" header="Left"
+			<p:layoutUnit position="west" size="220" header="#{i18n['template.west']}" 
 				resizable="true" closable="true" collapsible="true">
-				<ui:insert name="south">
-					<h:outputText value="West unit content." />
+				<ui:insert name="west">
+					<ui:include src="../templates/tiles/projectsMenu.xhtml" />
 				</ui:insert>
-			</p:layoutUnit>
-
-			<p:layoutUnit position="east" size="200" header="Right"
-				resizable="true" closable="true" collapsible="true" effect="drop">
-				<ui:include src="../templates/tiles/RightMenu.xhtml" />
 			</p:layoutUnit>
 
 			<p:layoutUnit position="center">

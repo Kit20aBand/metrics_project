@@ -1,34 +1,62 @@
 package com.metrics.view.controllers;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 
-import com.metrics.persistence.dao.common.ICommonOperations;
 import com.metrics.persistence.model.Event;
-import com.metrics.view.datamodel.GenericDataModel;
+import com.metrics.persistence.model.Project;
+import com.metrics.persistence.service.IEventService;
+import com.metrics.util.ThingsOverWhichIsWorking;
 
 @Named
 @Scope("request")
 public class ProjectHomeController {
 
 	@Inject
-	@Qualifier("eventService")
-	private ICommonOperations<Event> service;
+	private IEventService eventService;
 
-	private GenericDataModel<Event> dataModel;
+	@Inject
+	private ThingsOverWhichIsWorking thingsOverWhichIsWorking;
+
+	private List<Event> events;
+
+	private Event selectedEvent;
+
+	private List<Event> filteredEvents;
 
 	@PostConstruct
 	public void init() {
-		dataModel = new GenericDataModel<Event>(service);
-
+		final Project project = thingsOverWhichIsWorking.getActiveProject();
+		events = eventService.getEvent(project);
 	}
 
-	public GenericDataModel<Event> getDataModel() {
-		return dataModel;
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(final List<Event> events) {
+		this.events = events;
+	}
+
+	public Event getSelectedEvent() {
+		return selectedEvent;
+	}
+
+	public void setSelectedEvent(final Event selectedEvent) {
+		this.selectedEvent = selectedEvent;
+	}
+
+	public List<Event> getFilteredEvents() {
+		return filteredEvents;
+	}
+
+	public void setFilteredEvents(final List<Event> filteredEvents) {
+		this.filteredEvents = filteredEvents;
 	}
 
 }

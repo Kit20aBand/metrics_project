@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SelectableDataModel;
 import org.primefaces.model.SortOrder;
 
 import com.metrics.persistence.model.BaseEntity;
 
-public class GenericLazyDataModel<T extends BaseEntity> extends LazyDataModel<T> implements Serializable {
+public class GenericLazyDataModel<T extends BaseEntity> extends
+		LazyDataModel<T> implements SelectableDataModel<T>, Serializable {
 
 	private List<T> datasource;
 

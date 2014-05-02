@@ -88,6 +88,16 @@ ICommonOperations<T> {
 
 	@Override
 	public List<T> findWithNamedQuery(final String namedQueryName,
+			final Map<String, Object> parameters, final int start, final int end) {
+		final Query query = processNamedQueriesWithParameters(namedQueryName,
+				parameters);
+		query.setMaxResults(end - start);
+		query.setFirstResult(start);
+		return query.list();
+	}
+
+	@Override
+	public List<T> findWithNamedQuery(final String namedQueryName,
 			final int start, final int end) {
 		checkNotNull(namedQueryName);
 		// checkArgument(start < 0, "must be positive: %s", start);
@@ -101,9 +111,9 @@ ICommonOperations<T> {
 	}
 
 	@Override
-	public Object getOneResult(final String namedQueryName,
+	public T getOneResult(final String namedQueryName,
 			final Map<String, Object> parameters) {
-		return processNamedQueriesWithParameters(namedQueryName, parameters)
+		return (T) processNamedQueriesWithParameters(namedQueryName, parameters)
 				.uniqueResult();
 	}
 

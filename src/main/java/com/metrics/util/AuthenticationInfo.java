@@ -1,6 +1,6 @@
-package com.metrics.security.util;
+package com.metrics.util;
 
-import static com.metrics.security.util.AuthenticationFacade.getAuthentication;
+import static com.metrics.util.AuthenticationFacade.getAuthentication;
 
 import javax.inject.Inject;
 

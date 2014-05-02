@@ -9,16 +9,28 @@
 		<h:outputLabel value="#{i18n['project.CreateProject']}" style="font-size: 150%; font-weight:bold; margin:10px" />
 		<h:form id="newProjectForm">
 			<p:panelGrid columns="2">
-				<p:outputLabel for="name" value="#{i18n['project.InputName']}"></p:outputLabel>
-				<p:inputText id="name"  value="${createProjectController.project.name}" required="true" ></p:inputText>
+				<p:outputLabel for="name"  value="#{i18n['project.InputName']}"></p:outputLabel>
+				<p:inputTextarea id="name" rows="1" cols="70" value="${createProjectController.project.name}" required="true" ></p:inputTextarea>
 
 				<p:outputLabel for="info" value="#{i18n['project.InputDescription']}"></p:outputLabel>
-				<p:inputTextarea id="info" value="${createProjectController.project.description}" ></p:inputTextarea>
+				<p:inputTextarea id="info" rows="5" cols="70" value="${createProjectController.project.description}" ></p:inputTextarea>
 			
 			</p:panelGrid>
 			<p:commandButton value="#{i18n['project.Create']}" style="margin:10px"
 				action="#{createProjectController.createNewProject()}" />	
 		</h:form>
 		<p:growl id="growl" showDetail="true" />
+	</ui:define>
+	<ui:define name="west">
+	<h:form>
+			<p:menu>
+				<p:menuitem value="#{i18n['leftUserMenu.createProject']}"
+					action="users.xhtml?faces-redirect=true}" />
+				<p:menuitem value="#{i18n['leftUserMenu.openProject']}"
+					action="users.xhtml?faces-redirect=true}" />
+				<p:menuitem value="#{i18n['leftUserMenu.myProjects']}"
+					action="users.xhtml?faces-redirect=true}" />
+			</p:menu>
+		</h:form>
 	</ui:define>
 </ui:composition>

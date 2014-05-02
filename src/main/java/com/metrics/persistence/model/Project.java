@@ -6,10 +6,22 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
+@NamedQueries({
+	@NamedQuery(name = Project.FIND_BY_USER, query = "SELECT p FROM Project p WHERE p.user = :user"),
+	@NamedQuery(name = Project.FIND_BY_TOKEN, query = "SELECT p FROM Project p WHERE p.token = :token") })
 public class Project extends BaseEntity {
+
+	public static final String FIND_BY_USER = "Project.findByUser";
+
+	public static final String FIND_BY_TOKEN = "Project.findByToken";
 
 	private String name;
 
@@ -23,6 +35,7 @@ public class Project extends BaseEntity {
 	private User user;
 
 	@OneToMany(mappedBy = "project")
+	@Cascade({ CascadeType.ALL })
 	private Set<Event> events;
 
 	public String getName() {

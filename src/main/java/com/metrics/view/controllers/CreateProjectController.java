@@ -11,7 +11,8 @@ import org.springframework.context.annotation.Scope;
 
 import com.metrics.persistence.model.Project;
 import com.metrics.persistence.service.IProjectService;
-import com.metrics.security.util.AuthenticationInfo;
+import com.metrics.util.AuthenticationInfo;
+import com.metrics.util.ThingsOverWhichIsWorking;
 import com.metrics.view.util.CommonPages;
 
 @Named
@@ -25,6 +26,9 @@ public class CreateProjectController {
 	@Inject
 	private AuthenticationInfo authenticationInfo;
 
+	@Inject
+	private ThingsOverWhichIsWorking thingsOverWhichIsWorking;
+
 	private Project project = new Project();
 
 	@PostConstruct
@@ -35,6 +39,7 @@ public class CreateProjectController {
 
 	public String createNewProject() {
 		service.create(project);
+		thingsOverWhichIsWorking.setActiveProject(project);
 		return CommonPages.userProjectPage + "?faces-redirect=true";
 	}
 
