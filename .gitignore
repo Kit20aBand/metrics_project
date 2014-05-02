@@ -6,8 +6,12 @@
 /data
 /src/main/webapp/WEB-INF/classes
 */META-INF/*
-
 # Packaged files #
 *.jar
 *.war
 *.ear
+target
+.settings/*
+!.settings/.jsdtscope
+.project
+.classpath
