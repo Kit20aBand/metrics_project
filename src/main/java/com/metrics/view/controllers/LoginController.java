@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Scope;
 
+import com.metrics.persistence.model.Role;
 import com.metrics.util.AuthenticationInfo;
 
 @Named
@@ -86,6 +87,13 @@ public class LoginController {
 
 	public boolean isAuthentication() {
 		return authenticationInfo.isAuthentication();
+	}
+
+	public boolean isUser() {
+		if (authenticationInfo.findUser() == null) {
+			return false;
+		}
+		return authenticationInfo.findUser().getRole().equals(Role.ROLE_USER);
 	}
 
 	public String getUsername() {

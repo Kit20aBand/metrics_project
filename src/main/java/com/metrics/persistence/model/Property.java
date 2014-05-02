@@ -2,13 +2,18 @@ package com.metrics.persistence.model;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({ @NamedQuery(name = Property.FIND_BY_EVENT, query = "SELECT p FROM Property p WHERE p.event = :event") })
 public class Property extends BaseEntity {
+
+	public static final String FIND_BY_EVENT = "Property.findByEvent";
 
 	private String name;
 
-	private double value;
+	private Object value;
 
 	@ManyToOne
 	private Event event;
@@ -29,11 +34,11 @@ public class Property extends BaseEntity {
 		this.event = event;
 	}
 
-	public double getValue() {
+	public Object getValue() {
 		return value;
 	}
 
-	public void setValue(final double value) {
+	public void setValue(final Object value) {
 		this.value = value;
 	}
 
