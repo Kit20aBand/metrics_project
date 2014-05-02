@@ -13,7 +13,7 @@ public class Property extends BaseEntity {
 
 	private String name;
 
-	private Object value;
+	private double value;
 
 	@ManyToOne
 	private Event event;
@@ -34,11 +34,11 @@ public class Property extends BaseEntity {
 		this.event = event;
 	}
 
-	public Object getValue() {
+	public double getValue() {
 		return value;
 	}
 
-	public void setValue(final Object value) {
+	public void setValue(final double value) {
 		this.value = value;
 	}
 
