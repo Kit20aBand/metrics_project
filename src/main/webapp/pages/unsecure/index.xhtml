@@ -6,7 +6,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-		<h3>Welcome to Web App</h3>
-
+		<p:outputLabel value="#{i18n['welcome']}"
+			style="font-size: 150%; font-weight:bold; margin:10px"/>
 	</ui:define>
+	<ui:define name="west"></ui:define>
 </ui:composition>

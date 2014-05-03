@@ -8,11 +8,12 @@
 	<ui:define name="content">
 		<p:outputLabel value="#{i18n['account.CreateNewAccount']}"
 			style="font-size: 150%; font-weight:bold; margin:10px" />
+		<p></p>
 		<h:form>
 			<p:panelGrid columns="2">
 				<p:outputLabel for="login" value="#{i18n['login.Username']}"></p:outputLabel>
-				<p:inputText id="login" value="${registrationController.user.username}"
-					required="true"
+				<p:inputText id="login"
+					value="${registrationController.user.username}" required="true"
 					requiredMessage="#{i18n['requiredMessage.Username']}"></p:inputText>
 
 				<p:outputLabel for="password" value="#{i18n['login.Password']}"></p:outputLabel>
@@ -33,7 +34,11 @@
 
 				<p:outputLabel for="email" value="Email: "></p:outputLabel>
 				<p:inputText id="email" value="${registrationController.user.email}"
-					required="true" requiredMessage="#{i18n['requiredMessage.Email']}"></p:inputText>
+					required="true" requiredMessage="#{i18n['requiredMessage.Email']}"
+					validatorMessage="#{i18n['validateMessage.email']}">
+					<f:validateRegex
+						pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+				</p:inputText>
 
 				<p:outputLabel for="firstname" value="#{i18n['account.Firstname']}"></p:outputLabel>
 				<p:inputText id="firstname"
@@ -42,7 +47,6 @@
 				<p:outputLabel for="lastname" value="#{i18n['account.Lastname']}"></p:outputLabel>
 				<p:inputText id="lastname"
 					value="${registrationController.user.lastname}"></p:inputText>
-
 
 			</p:panelGrid>
 			<p:commandButton value="Create" ajax="false" style="margin:10px"
