@@ -52,6 +52,7 @@ public class LoginController {
 
 	public void checkLoginAfterRegistration() {
 		final ServletRequest request = getRequest();
+		log.info(request);
 		if (Boolean.parseBoolean(request.getParameter("afterRegistration"))) {
 			sendMessage("login.AfterRegistration", FacesMessage.SEVERITY_INFO);
 		}
