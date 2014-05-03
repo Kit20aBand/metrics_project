@@ -93,7 +93,8 @@ public class LoginController {
 		if (authenticationInfo.findUser() == null) {
 			return false;
 		}
-		return authenticationInfo.findUser().getRole().equals(Role.ROLE_USER);
+		return authenticationInfo.findUser().getRole().getRole()
+				.equals(Role.ROLE_USER);
 	}
 
 	public String getUsername() {

@@ -1,7 +1,7 @@
 package com.metrics.persistence.model;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +24,7 @@ public class Event extends BaseEntity {
 	private Project project;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
-	Set<Property> properties;
+	private List<Property> properties;
 
 	public String getName() {
 		return name;
@@ -32,14 +32,6 @@ public class Event extends BaseEntity {
 
 	public void setName(final String name) {
 		this.name = name;
-	}
-
-	public Set<Property> getProperties() {
-		return properties;
-	}
-
-	public void setProperties(final Set<Property> properties) {
-		this.properties = properties;
 	}
 
 	public Project getProject() {
@@ -56,6 +48,14 @@ public class Event extends BaseEntity {
 
 	public void setDate(final Date date) {
 		this.date = date;
+	}
+
+	public List<Property> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(final List<Property> properties) {
+		this.properties = properties;
 	}
 
 }

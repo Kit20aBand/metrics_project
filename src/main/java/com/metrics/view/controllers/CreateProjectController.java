@@ -40,7 +40,7 @@ public class CreateProjectController {
 	public String createNewProject() {
 		service.create(project);
 		thingsOverWhichIsWorking.setActiveProject(project);
-		return CommonPages.userProjectPage + "?faces-redirect=true";
+		return CommonPages.USER_ALL_PROJECTS_PAGE + "?faces-redirect=true";
 	}
 
 	public Project getProject() {

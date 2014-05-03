@@ -49,7 +49,7 @@ public class AllUserProjectsController {
 	public String goToProject() {
 		thingsOverWhichIsWorking.setActiveProject(selectedProject);
 		System.out.println(selectedProject);
-		return CommonPages.userProjectPage + "?faces-redirect=true";
+		return CommonPages.USER_PROJECT_PAGE + "?faces-redirect=true";
 	}
 
 	public void deleteProject() {

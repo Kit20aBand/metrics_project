@@ -66,9 +66,9 @@ public class UrlAuthenticationSuccessHandler implements AuthenticationSuccessHan
 			}
 		}
 		if (isUser) {
-			return CommonPages.userHomePage;
+			return CommonPages.USER_HOME_PAGE;
 		} else if (isAdmin) {
-			return CommonPages.consolePage;
+			return CommonPages.CONSOLE_PAGE;
 		} else {
 			throw new IllegalStateException();
 		}

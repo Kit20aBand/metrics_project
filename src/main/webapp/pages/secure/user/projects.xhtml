@@ -15,7 +15,7 @@
 					update="dataTable" />
 
 			</p:contextMenu>
-			<p:dataTable id="dataTable" var="project" editable="true"
+			<p:dataTable id="dataTable" var="project"
 				value="#{allUserProjectsController.projects}" paginator="true"
 				rows="10" rowKey="#{project.id}"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -28,15 +28,18 @@
 					<h:outputText value="#{i18n['project.projects']}" />
 				</f:facet>
 
-				<p:column headerText="#{i18n['project.name']}" filterBy="#{project.name}" sortBy="#{project.name}">
+				<p:column headerText="#{i18n['project.name']}"
+					filterBy="#{project.name}" sortBy="#{project.name}">
 					<h:outputText value="#{project.name}" />
 				</p:column>
 
-				<p:column headerText="#{i18n['project.description']}" filterBy="#{project.description}" sortBy="#{project.description}">
+				<p:column headerText="#{i18n['project.description']}"
+					filterBy="#{project.description}" sortBy="#{project.description}">
 					<h:outputText value="#{project.description}" />
 				</p:column>
 
-				<p:column headerText="#{i18n['project.token']}" filterBy="#{project.token}" sortBy="#{project.token}">
+				<p:column headerText="#{i18n['project.token']}"
+					filterBy="#{project.token}" sortBy="#{project.token}">
 					<h:outputText value="#{project.token}" />
 				</p:column>
 
@@ -44,7 +47,5 @@
 		</h:form>
 		<p:growl id="growl" showDetail="true" />
 	</ui:define>
-	<ui:define name="west">
 
-	</ui:define>
 </ui:composition>

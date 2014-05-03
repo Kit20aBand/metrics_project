@@ -41,7 +41,7 @@ public class RegistrationController {
 		log.info("Registering...");
 		service.create(user);
 		log.info("Registration success");
-		return CommonPages.loginPage
+		return CommonPages.LOGIN_PAGE
 				+ "?faces-redirect=true&afterRegistration=true";
 	}
 

@@ -22,7 +22,7 @@ IPropertyDao {
 	@Override
 	public List<Property> getProperties(final Event event) {
 		final Map<String, Object> params = new HashMap<String, Object>();
-		params.put("eventproject", event);
+		params.put("event", event);
 		return findWithNamedQuery(Property.FIND_BY_EVENT, params);
 	}
 

@@ -26,7 +26,7 @@ public class EventHomeController {
 	@Inject
 	private ThingsOverWhichIsWorking thingsOverWhichIsWorking;
 
-	private Property property;
+	private Property selectedProperty;
 
 	private List<Property> properties;
 
@@ -54,4 +54,11 @@ public class EventHomeController {
 		this.filteredProperties = filteredProperties;
 	}
 
+	public Property getSelectedProperty() {
+		return selectedProperty;
+	}
+
+	public void setSelectedProperty(final Property selectedProperty) {
+		this.selectedProperty = selectedProperty;
+	}
 }

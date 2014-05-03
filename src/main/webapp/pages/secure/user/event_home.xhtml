@@ -6,38 +6,37 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-		<h3>Project home</h3>
 		<h:form id="form" onLoad="reset()">
-			<p:dataTable id="dataTable" var="event" editable="true"
-				value="#{projectHomeController.dataModel}" paginator="true" rows="10"
+			<p:dataTable id="dataTable" var="property" 
+				value="#{eventHomeController.properties}" paginator="true" rows="10" rowKey="#{property.id}"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="1,3,5,10,15,50" resizableColumns="true" lazy="true">
+				rowsPerPageTemplate="1,3,5,10,15,50" resizableColumns="true"
+				selection="#{eventHomeController.selectedProperty}" selectionMode="single"
+				filteredValue="#{eventHomeController.filteredProperties}">
  
 				<f:facet name="header">   
-            		Projects 
-        	</f:facet>
-
-				<p:column headerText="Name">
-					<h:outputText value="#{project.name}" />
+            		<h:outputText value="#{i18n['property.properties']}" /> 
+        		</f:facet>
+				<p:column headerText="#{i18n['property.name']}">
+					<h:outputText value="#{property.name}" />
 				</p:column>
 
-				<p:column headerText="Description">
-					<h:outputText value="#{project.description}" />
+				<p:column headerText="#{i18n['property.value']}">
+					<h:outputText value="#{property.value}" />
 				</p:column>
-
-				<p:column headerText="Token">
-					<h:outputText value="#{project.token}" />
-				</p:column>
+							<f:facet name="footer">
+						<h:outputText value="#{i18n['event.date']}" />
+						<h:outputText value=": " />
+						<h:outputText
+							value="#{thingsOverWhichIsWorking.activeEvent.date}" />
+						<h:outputText value="; " />
+						<h:outputText value="#{i18n['event.name']}" />
+						<h:outputText value=": " />
+						<h:outputText
+							value="#{thingsOverWhichIsWorking.activeEvent.name}" />
+				</f:facet>
 			</p:dataTable>
 		</h:form>
 		<p:growl id="growl" showDetail="true" />
-	</ui:define>
-	<ui:define name="east">
-		<h:form>
-			<p:menu>
-				<p:menuitem value="Go to events"
-					action="project_home.xhtml" />
-			</p:menu>
-		</h:form>
 	</ui:define>
 </ui:composition>

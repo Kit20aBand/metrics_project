@@ -12,6 +12,7 @@ import com.metrics.persistence.model.Event;
 import com.metrics.persistence.model.Project;
 import com.metrics.persistence.service.IEventService;
 import com.metrics.util.ThingsOverWhichIsWorking;
+import com.metrics.view.util.CommonPages;
 
 @Named
 @Scope("request")
@@ -33,6 +34,11 @@ public class ProjectHomeController {
 	public void init() {
 		final Project project = thingsOverWhichIsWorking.getActiveProject();
 		events = eventService.getEvent(project);
+	}
+
+	public String goToProperties() {
+		thingsOverWhichIsWorking.setActiveEvent(selectedEvent);
+		return CommonPages.USER_EVENT_PAGE + "?faces-redirect=true";
 	}
 
 	public List<Event> getEvents() {
