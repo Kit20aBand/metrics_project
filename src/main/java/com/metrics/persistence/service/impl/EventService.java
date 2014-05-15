@@ -30,5 +30,14 @@ IEventService {
 		return dao.getEvent(project);
 	}
 
+	@Override
+	public List<Event> getEventsWithoutDuplicates(final Project project) {
+		return dao.getEventsWithoutDuplicates(project);
+	}
+
+	@Override
+	public int getCountOfEvents(final Project project, final String eventName) {
+		return dao.getCountOfEvents(project, eventName);
+	}
 
 }

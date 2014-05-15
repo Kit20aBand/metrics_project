@@ -43,13 +43,13 @@
 				<p:commandButton value="#{i18n['login.SignIn']}" icon="ui-icon-person"
 					style="margin-right:10px"
 					rendered="#{loginController.renderSignInButton()}"
-					action="#{menuBarController.redirectToLoginPage()}" />
+					action="/pages/unsecure/login.xhtml" />
 				<p:commandButton value="#{i18n['login.Logout']}" icon="ui-icon-extlink"
 					style="margin-right:10px"
 					actionListener="#{loginController.logout}"
 					rendered="#{loginController.renderLogoutButton()}" ajax="false" />
 				<p:commandButton value="#{i18n['login.CreateAccount']}" icon="ui-icon-plus"
-					style="margin-right:10px" action="#{menuBarController.redirectToRegisterPage()}"  />
+					style="margin-right:10px" action="/pages/unsecure/create_account.xhtml"  />
 			</f:facet>
 		</p:menubar>
 	</h:form>

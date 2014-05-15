@@ -100,10 +100,6 @@ ICommonOperations<T> {
 	public List<T> findWithNamedQuery(final String namedQueryName,
 			final int start, final int end) {
 		checkNotNull(namedQueryName);
-		// checkArgument(start < 0, "must be positive: %s", start);
-		// checkArgument(end < 0, "must be positive: %s", end);
-		// checkArgument(end > start, "end %s must be bigger then start %s: %s",
-		// end, start);
 		final Query query = getCurrentSession().getNamedQuery(namedQueryName);
 		query.setMaxResults(end - start);
 		query.setFirstResult(start);
@@ -118,8 +114,10 @@ ICommonOperations<T> {
 	}
 
 	@Override
-	public int countTotalRecord(final String namedQueryName) {
-		final Query query = getCurrentSession().getNamedQuery(namedQueryName);
+	public int countTotalRecord(final String namedQueryName,
+			final Map<String, Object> parameters) {
+		final Query query = processNamedQueriesWithParameters(namedQueryName,
+				parameters);
 		final Number number = (Number) query.uniqueResult();
 		return number.intValue();
 	}

@@ -33,6 +33,8 @@ public interface ICommonOperations<T extends BaseEntity> {
 
 	T getOneResult(String namedQueryName, Map<String, Object> parameters);
 
-	int countTotalRecord(String namedQueryName);
+	int countTotalRecord(String namedQueryName,
+			final Map<String, Object> parameters);
+
 
 }

@@ -1,5 +1,7 @@
 package com.metrics.util;
 
+import java.util.List;
+
 import javax.inject.Named;
 
 import org.springframework.context.annotation.Scope;
@@ -17,6 +19,8 @@ public class ThingsOverWhichIsWorking {
 
 	private Event event;
 
+	private List<Event> eventsToVisualize;
+
 	public Project getActiveProject() {
 		return project;
 	}
@@ -31,5 +35,13 @@ public class ThingsOverWhichIsWorking {
 
 	public void setActiveEvent(final Event event) {
 		this.event = event;
+	}
+
+	public List<Event> getEventsToVisualize() {
+		return eventsToVisualize;
+	}
+
+	public void setEventsToVisualize(final List<Event> eventsToVisualize) {
+		this.eventsToVisualize = eventsToVisualize;
 	}
 }

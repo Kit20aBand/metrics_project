@@ -65,8 +65,9 @@ ICommonOperations<T> {
 	}
 
 	@Override
-	public int countTotalRecord(final String namedQueryName) {
-		return getDao().countTotalRecord(namedQueryName);
+	public int countTotalRecord(final String namedQueryName,
+			final Map<String, Object> parameters) {
+		return getDao().countTotalRecord(namedQueryName, parameters);
 	}
 
 	protected abstract ICommonOperations<T> getDao();

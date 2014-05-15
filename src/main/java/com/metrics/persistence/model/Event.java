@@ -11,10 +11,17 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
-@NamedQueries({ @NamedQuery(name = Event.FIND_BY_PROJECT, query = "SELECT e FROM Event e WHERE e.project = :project") })
+@NamedQueries({
+	@NamedQuery(name = Event.FIND_BY_PROJECT, query = "SELECT e FROM Event e WHERE e.project = :project"),
+	@NamedQuery(name = Event.FIND_BY_PROJECT_WITHOUT_DUPLICATES, query = "SELECT e FROM Event e WHERE e.project = :project GROUP BY e.name"),
+	@NamedQuery(name = Event.GET_COUNT_OF_EVENTS, query = "SELECT COUNT(e) FROM Event e where e.project = :project AND e.name = :name") })
 public class Event extends BaseEntity {
 
 	public static final String FIND_BY_PROJECT = "Event.findByProject";
+
+	public static final String FIND_BY_PROJECT_WITHOUT_DUPLICATES = "Event.findByProjectWithoutDuplicates";
+
+	public static final String GET_COUNT_OF_EVENTS = "Event.getCount";
 
 	private String name;
 

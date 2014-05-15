@@ -50,9 +50,11 @@ public class QueryService {
 		projectService = ctx.getBean("projectService", IProjectService.class);
 		propertyService = ctx
 				.getBean("propertyService", IPropertyService.class);
-		log.info(propertyNames);
-		log.info(propertyValues);
 		final Project project = projectService.getProject(token);
+		if (project == null) {
+			return Response.status(404)
+					.entity("Project with this token was not found").build();
+		}
 		final Event event = new Event();
 		final List<Property> properties = new ArrayList<Property>();
 		Property property;
@@ -61,7 +63,6 @@ public class QueryService {
 			property.setEvent(event);
 			property.setName(propertyNames.get(i));
 			property.setValue(propertyValues.get(i));
-			// propertyService.create(property);
 			properties.add(property);
 		}
 		event.setDate(new Date());
@@ -69,8 +70,8 @@ public class QueryService {
 		event.setProject(project);
 		event.setProperties(properties);
 		eventService.create(event);
-		for (final Property property2 : properties) {
-			propertyService.create(property2);
+		for (final Property p : properties) {
+			propertyService.create(p);
 		}
 		return Response
 				.status(200)

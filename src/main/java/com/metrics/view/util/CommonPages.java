@@ -20,6 +20,7 @@ public class CommonPages {
 	public static final String USER_PROJECT_PAGE = "/pages/secure/user/project_home.xhtml";
 	public static final String USER_EVENT_PAGE = "/pages/secure/user/event_home.xhtml";
 	public static final String USER_ALL_PROJECTS_PAGE = "/pages/secure/user/projects.xhtml";
+	public static final String USER_VISUZLIZATION_PAGE = "/pages/secure/user/visualization.xhtml";
 
 	private CommonPages() {
 

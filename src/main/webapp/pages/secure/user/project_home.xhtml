@@ -32,16 +32,10 @@
 					<h:outputText value="#{event.name}" />
 				</p:column>
 				<f:facet name="footer">
-					<h:outputFormat value="" />
-					<h:outputText value="#{i18n['project.name']}" />
-					<h:outputText value=": " />
-					<h:outputText
-						value="#{thingsOverWhichIsWorking.activeProject.name}" />
-					<h:outputText value="; " />
-					<h:outputText value="#{i18n['project.token']}" />
-					<h:outputText value=": " />
-					<h:outputText
-						value="#{thingsOverWhichIsWorking.activeProject.token}" />
+					<h:outputFormat value="#{i18n['project.activeProject']}" >
+						<f:param  value="#{thingsOverWhichIsWorking.activeProject.name}"></f:param>
+						<f:param  value="#{thingsOverWhichIsWorking.activeProject.token}"></f:param>
+					</h:outputFormat>
 				</f:facet>
 			</p:dataTable>
 		</h:form>
@@ -53,6 +47,8 @@
 			<p:menu>
 				<p:menuitem value="#{i18n['visualization']}"
 					action="/pages/secure/user/visualization.xhtml?faces-redirect=true}" />
+					<p:menuitem value="#{i18n['editor']}"
+					action="/pages/secure/user/sql_editor.xhtml?faces-redirect=true}" />
 			</p:menu>
 		</h:form>
 	</ui:define>
