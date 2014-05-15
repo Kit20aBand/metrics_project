@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h:form id="form">
+		<p:contextMenu for="dataTable">
+				<p:menuitem value="#{i18n['visualizate']}"
+					action="#{eventsToVisualizeController.visualizate()}" />
+
+			</p:contextMenu>
+			<p:dataTable id="dataTable" var="event" editable="true"
+				value="#{eventsToVisualizeController.events}" paginator="true" rows="10"
+				rowKey="#{event}"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="1,3,5,10,15,50" resizableColumns="true"
+				selection="#{eventsToVisualizeController.selectedEvents}"
+				filteredValue="#{eventsToVisualizeController.filteredEvents}">
+
+				<f:facet name="header">
+					<h:outputText value="#{i18n['eventsToVisualize']}" />
+				</f:facet>
+
+				<p:column selectionMode="multiple" style="width:4%" />
+
+				<p:column headerText="#{i18n['event.name']}" >
+					<h:outputText value="#{event.name}" />
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton value="#{i18n['visualizate']}" action="#{eventsToVisualizeController.visualizate()}"></p:commandButton>
+					<h:outputFormat value="#{i18n['project.activeProject']}" >
+						<f:param  value="#{thingsOverWhichIsWorking.activeProject.name}"></f:param>
+						<f:param  value="#{thingsOverWhichIsWorking.activeProject.token}"></f:param>
+					</h:outputFormat>
+				</f:facet>
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+
+	<ui:define name="west">
+
+	</ui:define>
+
+
+</ui:composition>

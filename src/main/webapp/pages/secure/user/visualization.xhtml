@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h:panelGrid columns="2">
+			<p:commandButton id="showEventsDialog"
+				value="#{i18n['event.selectEvents']}"
+				action="/pages/secure/user/select_events_to_visualize.xhtml?faces-redirect=true" />
+			<p:commandButton id="showTimeIntervalDialog" type="button"
+				value="#{i18n['chart.setTimeInterval']}" onclick="PF('dlg').show()" />
+		</h:panelGrid>
+			<p:chart type="pie" model="#{visualizationController.chart}" 
+				style="width:400px;height:300px" />
+				
+			<p:dialog header="Effects" widgetVar="dlg" showEffect="explode" hideEffect="bounce" height="100">
+    			<h:outputText value="Choose format" />
+    			<p:selectOneRadio id="options" value="#{visualizationController.number}">
+            		<f:selectItem itemLabel="Year" itemValue="1" />
+            		<f:selectItem itemLabel="Month" itemValue="2" />
+            		<f:selectItem itemLabel="Day" itemValue="3" />
+        		</p:selectOneRadio>
+        		<p:commandButton type="submit" value="Submit"></p:commandButton>
+			</p:dialog>
+
+	</ui:define>
+	
+	<ui:define name="west">
+
+	</ui:define>
+
+
+</ui:composition>
