@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface ISqlEditor {
 
-	void runSql(final String sqlQuery);
-
 	@SuppressWarnings("rawtypes")
 	List findWithSql(final String sqlQuery);
+
+	void runSql(final String sqlQuery);
 }

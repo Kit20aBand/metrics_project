@@ -31,19 +31,10 @@
 				</p:column>
 				<f:facet name="footer">
 					<p:commandButton value="#{i18n['visualizate']}" action="#{eventsToVisualizeController.visualizate()}"></p:commandButton>
-					<h:outputFormat value="#{i18n['project.activeProject']}" >
-						<f:param  value="#{thingsOverWhichIsWorking.activeProject.name}"></f:param>
-						<f:param  value="#{thingsOverWhichIsWorking.activeProject.token}"></f:param>
-					</h:outputFormat>
 				</f:facet>
 			</p:dataTable>
 
 		</h:form>
 	</ui:define>
-
-	<ui:define name="west">
-
-	</ui:define>
-
 
 </ui:composition>

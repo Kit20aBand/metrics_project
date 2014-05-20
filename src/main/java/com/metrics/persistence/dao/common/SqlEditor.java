@@ -17,13 +17,6 @@ public class SqlEditor implements ISqlEditor {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public void runSql(final String sqlQuery) {
-		final Query query = sessionFactory.getCurrentSession().createSQLQuery(
-				sqlQuery);
-		query.executeUpdate();
-	}
-
-	@Override
 	@SuppressWarnings("rawtypes")
 	public List findWithSql(final String sqlQuery) {
 		final Query query = sessionFactory.getCurrentSession().createSQLQuery(
@@ -31,4 +24,10 @@ public class SqlEditor implements ISqlEditor {
 		return query.list();
 	}
 
+	@Override
+	public void runSql(final String sqlQuery) {
+		final Query query = sessionFactory.getCurrentSession().createSQLQuery(
+				sqlQuery);
+		query.executeUpdate();
+	}
 }

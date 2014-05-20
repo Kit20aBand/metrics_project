@@ -8,8 +8,6 @@ import javax.inject.Named;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.primefaces.model.chart.LineChartModel;
-import org.primefaces.model.chart.LineChartSeries;
 import org.primefaces.model.chart.PieChartModel;
 import org.springframework.context.annotation.Scope;
 
@@ -33,40 +31,25 @@ public class VisualizationController {
 
 	private PieChartModel pieChart;
 
-	private LineChartModel lineChart;
-
-	private int number;
-
 	@PostConstruct
 	public void init() {
 		final Project project = thingsOverWhichIsWorking.getActiveProject();
 		final List<Event> selectedEvents = thingsOverWhichIsWorking
 				.getEventsToVisualize();
 		pieChart = new PieChartModel();
-		for (final Event event : selectedEvents) {
-			pieChart.set(event.getName(),
-					eventService.getCountOfEvents(project, event.getName()));
+		if (selectedEvents != null) {
+			for (final Event event : selectedEvents) {
+				pieChart.set(event.getName(),
+						eventService.getCountOfEvents(project, event.getName()));
+			}
+			pieChart.setLegendPosition("w");
+			pieChart.setShowDataLabels(true);
+			pieChart.setShadow(true);
 		}
-		final LineChartSeries series;
-		/*
-		 * for (final Event event : selectedEvents) { series = new
-		 * LineChartSeries(); series.set(event.getDate(), y); }
-		 */
-
-
 	}
 
 	public PieChartModel getChart() {
 		return pieChart;
 	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(final int number) {
-		this.number = number;
-	}
-
 
 }

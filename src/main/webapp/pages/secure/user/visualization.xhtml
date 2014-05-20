@@ -6,31 +6,17 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
-		<h:panelGrid columns="2">
-			<p:commandButton id="showEventsDialog"
-				value="#{i18n['event.selectEvents']}"
-				action="/pages/secure/user/select_events_to_visualize.xhtml?faces-redirect=true" />
-			<p:commandButton id="showTimeIntervalDialog" type="button"
-				value="#{i18n['chart.setTimeInterval']}" onclick="PF('dlg').show()" />
-		</h:panelGrid>
-			<p:chart type="pie" model="#{visualizationController.chart}" 
-				style="width:400px;height:300px" />
-				
-			<p:dialog header="Effects" widgetVar="dlg" showEffect="explode" hideEffect="bounce" height="100">
-    			<h:outputText value="Choose format" />
-    			<p:selectOneRadio id="options" value="#{visualizationController.number}">
-            		<f:selectItem itemLabel="Year" itemValue="1" />
-            		<f:selectItem itemLabel="Month" itemValue="2" />
-            		<f:selectItem itemLabel="Day" itemValue="3" />
-        		</p:selectOneRadio>
-        		<p:commandButton type="submit" value="Submit"></p:commandButton>
-			</p:dialog>
-
+		<h:form>
+			<h:panelGrid columns="2">
+				<p:commandButton id="showEventsDialog"
+					value="#{i18n['event.selectEvents']}"
+					action="/pages/secure/user/select_events_to_visualize.xhtml?faces-redirect=true" />
+			</h:panelGrid>
+			<p:chart type="pie" model="#{visualizationController.chart}"
+				style="width:700px;height:400px" />
+		</h:form>
 	</ui:define>
-	
-	<ui:define name="west">
 
-	</ui:define>
 
 
 </ui:composition>

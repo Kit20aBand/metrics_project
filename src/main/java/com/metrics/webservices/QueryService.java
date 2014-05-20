@@ -5,10 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
-import javax.ws.rs.GET;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
@@ -35,60 +34,51 @@ public class QueryService {
 
 	private IPropertyService propertyService;
 
-	@GET
-	@Path("/query")
-	public Response saveDataGetRequest(
-			@Context final ServletContext servletContext,
-			@QueryParam("token") final String token,
-			@QueryParam("eventName") final String eventName,
-			@QueryParam("propertyName") final List<String> propertyNames,
-			@QueryParam("propertyValue") final List<String> propertyValues) {
-
+	@POST
+	@Path("/post")
+	@Consumes("application/json")
+	public Response saveEvents(@Context final ServletContext servletContext,
+			final JsonEvents events) {
 		final ApplicationContext ctx = WebApplicationContextUtils
 				.getWebApplicationContext(servletContext);
 		eventService = ctx.getBean("eventService", IEventService.class);
 		projectService = ctx.getBean("projectService", IProjectService.class);
 		propertyService = ctx
 				.getBean("propertyService", IPropertyService.class);
-		final Project project = projectService.getProject(token);
+
+		final Project project = projectService.getProject(events.getToken());
 		if (project == null) {
 			return Response.status(404)
 					.entity("Project with this token was not found").build();
 		}
-		final Event event = new Event();
-		final List<Property> properties = new ArrayList<Property>();
+		Event event;
 		Property property;
-		for (int i = 0; i < propertyNames.size(); i++) {
-			property = new Property();
-			property.setEvent(event);
-			property.setName(propertyNames.get(i));
-			property.setValue(propertyValues.get(i));
-			properties.add(property);
-		}
-		event.setDate(new Date());
-		event.setName(eventName);
-		event.setProject(project);
-		event.setProperties(properties);
-		eventService.create(event);
-		for (final Property p : properties) {
-			propertyService.create(p);
-		}
-		return Response
-				.status(200)
-				.entity("Event was saved to project: " + project.getName()
-						+ " Event name: " + eventName).build();
-	}
+		final List<Property> properties = new ArrayList<Property>();
+		for (final JsonEvent jsonEvent : events.getEvents()) {
+			event = new Event();
+			event.setProject(project);
+			event.setName(jsonEvent.getName());
+			event.setDate(new Date());
 
-	@POST
-	@Path("/query")
-	public Response saveDataPostRequest(
-			@Context final ServletContext servletContext,
-			@QueryParam("token") final String token,
-			@QueryParam("eventName") final String eventName,
-			@QueryParam("propertyName") final List<String> propertyNames,
-			@QueryParam("propertyValue") final List<String> propertyValues) {
-		return saveDataGetRequest(servletContext, token, eventName,
-				propertyNames,
-				propertyValues);
+			for (final JsonProperty jsonProperty : jsonEvent.getProperties()) {
+				property = new Property();
+				property.setEvent(event);
+				property.setName(jsonProperty.getName());
+				property.setValue(jsonProperty.getValue());
+				properties.add(property);
+			}
+
+			event.setProperties(properties);
+
+			eventService.create(event);
+
+			for (final Property p : properties) {
+				propertyService.create(p);
+			}
+		}
+
+		return Response.status(200)
+				.entity("Events was saved to project: " + events)
+				.build();
 	}
 }
